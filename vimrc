@@ -17,13 +17,15 @@ se mouse+=a
 " copy to clipboat with control + c
 vmap <C-c> "+y
 
-hi NonText ctermfg=7 guifg=gray
-"  set listchars=tab:>-
-" esc
+" map esc btn
 inoremap jj <ESC>
 
 " close modified buffers
 set hidden
+
+" insernew line
+nmap oo o<Esc>k
+nmap OO O<Esc>k
 
 "display full path 
 set statusline+=%F
@@ -36,16 +38,31 @@ endif
 
 " buftab
 noremap <f1> :bprev<CR> 
-noremap <f2> :bnext<CR>  
+noremap <f2> :bnext<CR> 
+
+" prevent to open buffer inside of nerdtree
+autocmd FileType nerdtree noremap <buffer> <f1> <nop>
+autocmd FileType nerdtree noremap <buffer> <f2> <nop>
 
 " let NERDTreeMapOpenInTab='<ENTER>'
 let NERDTreeShowHidden=1
 
-"map nerdtree
-" nmap <F6> :NERDTreeTabsToggle<CR>
+"close nerdtree when open controlp
+let g:ctrlp_map = ''
+nnoremap <c-p> :NERDTreeClose\|CtrlP<CR>
+
+" open nerdtree with f6
+nmap <F6> :NERDTreeTabsToggle<CR>
+
+" find file path on nerd tree
 nmap ,n :NERDTreeFind<CR>
+
+" open nerd tree
 nmap ,m :NERDTreeToggle<CR>
 "  let g:nerdtree_tabs_open_on_console_startup = 1
+
+" close nerdtree if is the last buffer is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " nerdtree buffer prevent opening 
 let g:miniBufExplModSelTarget = 1
@@ -56,6 +73,7 @@ let g:ag_working_path_mode="r"
 
 " control p
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 let g:ctrlp_regexp = 1
 set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip 
 let g:ctrlp_custom_ignore = {
@@ -100,10 +118,10 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
-" set delete btns
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-vnoremap <leader>p "_dP
+" " set delete btns
+" nnoremap <leader>d "_d
+" vnoremap <leader>d "_d
+" vnoremap <leader>p "_dP
 
 execute pathogen#infect()
 syntax on
