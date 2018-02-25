@@ -181,3 +181,4 @@ let g:airline#extensions#whitespace#enabled = 0
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+
