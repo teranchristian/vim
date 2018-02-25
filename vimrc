@@ -161,3 +161,17 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+" search result middle of screen
+nnoremap n nzz
+nnoremap N Nzz
+set scrolloff=5
+function! CenterSearch()
+  let cmdtype = getcmdtype()
+  if cmdtype == '/' || cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
+
+cnoremap <silent> <expr> <enter> CenterSearch()
