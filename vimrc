@@ -247,3 +247,19 @@ cnoremap <silent> <expr> <enter> CenterSearch()
 " templates for ejs
 au BufNewFile,BufRead *.ejs set filetype=html
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
+
+" Plugins {
+let g:plugins_location=expand('~/.vim/plugin')
+ " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'rking/ag.vim'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'vim-syntastic/syntastic.vim'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'pangloss/vim-javascript'
+call plug#end()
+
