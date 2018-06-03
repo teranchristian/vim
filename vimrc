@@ -207,7 +207,6 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
@@ -259,10 +258,11 @@ au BufNewFile,BufRead *.ejs set filetype=html
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
 
 " Plugins {
-let g:plugins_location=expand('~/.vim/plugin')
+call plug#begin('~/.vim/plugged')
  " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'rking/ag.vim'
+  Plug 'ap/vim-css-color'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'vim-syntastic/syntastic.vim'
   Plug 'tomtom/tcomment_vim'
