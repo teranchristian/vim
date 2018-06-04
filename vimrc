@@ -271,5 +271,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
 call plug#end()
 
