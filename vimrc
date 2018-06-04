@@ -19,10 +19,6 @@ set copyindent
 " set show matching parenthesis
 set showmatch
 
-" save with control s
-inoremap <C-s> <esc>:w<cr>
-nnoremap <C-s> :w<cr>
-
 " ignore case when searching
 set ignorecase
 
@@ -63,7 +59,7 @@ se mouse+=a
 "airline
 set encoding=utf8
 let g:airline_powerline_fonts = 1
-
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " copy to clipboat with control + c
 vmap <C-c> "+y
@@ -73,7 +69,6 @@ set colorcolumn=100
 
 " map esc btn
 inoremap jj <ESC>
-
 
 " insernew line
 nmap oo o<Esc>k
@@ -87,12 +82,9 @@ set statusline+=%F
 ".. hightlight all seach pattern
 :set hlsearch
 
-
 " buftab
 noremap <f1> :bprev<CR> 
 noremap <f2> :bnext<CR> 
-
-let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " prevent to open buffer inside of nerdtree
 autocmd FileType nerdtree noremap <buffer> <f1> <nop>
@@ -169,7 +161,7 @@ let g:ag_working_path_mode="r"
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 let g:ctrlp_regexp = 1
-set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip 
+set wildignore+=*/tmp/*,*/node_modules/*,*/build/json/*,*/build/raw/1/*,*.so,*.swp,*.zip,*min.js
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(node_modules|git|hg|svn|build)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -183,6 +175,16 @@ let g:javascript_plugin_ngdoc = 1
 
 "  set vim update time
 set updatetime=250
+
+" ignore
+set wildignore+=.DS_Store
+
+" Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l) {{{
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+" }}}
 
 "air vim setting i
 " Use patched fonts
@@ -211,13 +213,9 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-"Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
 " install npm install eslint --global
+" install npm install -g eslint-cli
+" let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_disabled_filetypes=['html', 'ejs']
 let g:syntastic_mode_map = { 'passive_filetypes': ['ejs'] }
@@ -225,9 +223,8 @@ let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
