@@ -1,3 +1,6 @@
+" fix issues with vim-airline color
+let &t_Co=256
+
 " $HOME/.vimrc
 set backupdir=~/.vimcache/backup//
 set directory=~/.vimcache/swap//
@@ -207,8 +210,9 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
-syntax on
-filetype plugin indent on
+let g:airline_theme='simple'
+
+let g:airline#extensions#tabline#formatter = 'jsformatter'
 
 "Smart way to move between windows
 map <C-j> <C-W>j
@@ -217,6 +221,9 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " install npm install eslint --global
+syntax on
+filetype plugin indent on
+
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_disabled_filetypes=['html', 'ejs']
 let g:syntastic_mode_map = { 'passive_filetypes': ['ejs'] }
@@ -257,20 +264,21 @@ cnoremap <silent> <expr> <enter> CenterSearch()
 au BufNewFile,BufRead *.ejs set filetype=html
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
 
-" Plugins {
-call plug#begin('~/.vim/plugged')
- " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  Plug 'rking/ag.vim'
-  Plug 'ap/vim-css-color'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'vim-syntastic/syntastic.vim'
-  Plug 'tomtom/tcomment_vim'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'tpope/vim-fugitive'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
+"Plugins {
+ call plug#begin('~/.vim/plugged')
+   " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
+   Plug 'scrooloose/nerdtree'
+   Plug 'rking/ag.vim'
+   Plug 'ap/vim-css-color'
+   Plug 'ctrlpvim/ctrlp.vim'
+   Plug 'vim-syntastic/syntastic.vim'
+   Plug 'tomtom/tcomment_vim'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   " Plug 'tpope/vim-fugitive'
+   Plug 'airblade/vim-gitgutter'
+   Plug 'pangloss/vim-javascript'
+   Plug 'mxw/vim-jsx'
 call plug#end()
 
+execute pathogen#infect()
