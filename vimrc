@@ -1,3 +1,6 @@
+" remad leader to comma
+let mapleader = ','
+
 " fix issues with vim-airline color
 let &t_Co=256
 
@@ -272,10 +275,9 @@ au BufRead,BufNewFile,BufReadPost *.json set syntax=json
    Plug 'ap/vim-css-color'
    Plug 'ctrlpvim/ctrlp.vim'
    Plug 'vim-syntastic/syntastic.vim'
-   Plug 'tomtom/tcomment_vim'
+   Plug 'scrooloose/nerdcommenter'
    Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
-   " Plug 'tpope/vim-fugitive'
    Plug 'airblade/vim-gitgutter'
    Plug 'pangloss/vim-javascript'
    Plug 'mxw/vim-jsx'
