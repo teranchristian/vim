@@ -1,7 +1,21 @@
+#!/bin/bash
 DOTFILES=$(pwd)
 DEV_DIR=~/code
 
-# mkdir ~/.vimcache
+set -euo pipefail
+
+if [ ! -d $DOTFILES/bundle ]; then
+  mkdir -p $DOTFILES/bundle;
+  git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
+fi
+
+if [ ! -d ~/.vimcache ]; then
+  mkdir -p ~/.vimcache/backup
+  mkdir -p ~/.vimcache/swap
+  mkdir -p ~/.vimcache/undo
+fi
+
+
 /bin/mkdir -p ~/.vimcache/backup
 /bin/mkdir -p ~/.vimcache/swap
 /bin/mkdir -p ~/.vimcache/undo
@@ -16,7 +30,7 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +q +q!
-
-sudo apt-get install fonts-powerline -y
-
-source ~/.profile
+bash -c 'sleep 30; do-whatever-else' &
+if [[ ! -e ~/.profile ]]; then
+    touch ~/.profile
+fi
