@@ -1,6 +1,8 @@
 " remad leader to comma
 let mapleader = ','
 
+source nerdtree.vim
+
 " fix issues with vim-airline color
 let &t_Co=256
 
@@ -85,9 +87,6 @@ inoremap jj <ESC>
 nmap oo o<Esc>k
 nmap OO O<Esc>k
 
-" close tab -> fix issue with Vim close buffer with nerdtree
-nnoremap <leader>q :bp\|bd #<CR>
-
 "display full path 
 set statusline+=%F
 ".. hightlight all seach pattern
@@ -99,73 +98,6 @@ noremap <f1> :bprev<CR>
 noremap <f2> :bnext<CR> 
 
 let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" prevent to open buffer inside of nerdtree
-autocmd FileType nerdtree noremap <buffer> <f1> <nop>
-autocmd FileType nerdtree noremap <buffer> <f2> <nop>
-
-" let NERDTreeMapOpenInTab='<ENTER>'
-let NERDTreeShowHidden=1
-
-" nerdtree remove "Press ? for help”
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-" Automatically delete the buffer of the file you just deleted with NerdTree
-let NERDTreeAutoDeleteBuffer = 1
-
-"close nerdtree when open controlp
-let g:ctrlp_map = ''
-nnoremap <c-p> :NERDTreeClose\|CtrlP<CR>
-let g:ctrlp_cmd = 'call CtrlPCommand()'
-"---
-" this was a good try but it did not work
-" function! CtrlPCommand()
-"     let c = 0
-"     let wincount = winnr('$')
-"     " Don't open it here if current buffer is not writable (e.g. NERDTree)
-"     while !empty(getbufvar(+expand("<abuf>"), "&buftype")) && c < wincount
-"         exec 'wincmd w'
-"         let c = c + 1
-"     endwhile
-"     exec 'CtrlP'
-" endfunction
-" ----
-
-" find file path on nerd tree
-nmap ,n :NERDTreeFind<CR>
-
-" open nerd tree
-nmap ,m :NERDTreeToggle<CR>
-"  let g:nerdtree_tabs_open_on_console_startup = 1
-
-" close nerdtree if is the last buffer is open
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Exit if the last window is a controlling one (NERDTree, qf). {{{2
-" Note: vim-qf has something similar (but simpler).
-function! s:QuitIfOnlyControlWinLeft()
-  if winnr("$") != 1
-    return
-  endif
-  " Alt Source: https://github.com/scrooloose/nerdtree/issues/21#issuecomment-3348390
-  " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-        \ || &buftype == 'quickfix'
-    " NOTE: problematic with Unite's directory, when opening a file:
-    " :Unite from startify, then quitting Unite quits Vim; also with TMRU from
-    " startify.
-        " \ || &ft == 'startify'
-    q
-  endif
-endfunction
-augroup my_QuitIfOnlyControlWinLeft
-  au!
-  au BufEnter * nested call s:QuitIfOnlyControlWinLeft()
-augroup END
-
-" nerdtree buffer prevent opening 
-let g:miniBufExplModSelTarget = 1
 
 "  vim ag
 set runtimepath^=~/.vim/bundle/ag
@@ -267,12 +199,17 @@ cnoremap <silent> <expr> <enter> CenterSearch()
 au BufNewFile,BufRead *.ejs set filetype=html
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
 
+" Fuzzy file finder
+set rtp+=/usr/local/opt/fzf
+
 "Plugins {
  call plug#begin('~/.vim/plugged')
    " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
    Plug 'scrooloose/nerdtree'
    Plug 'rking/ag.vim'
    Plug 'ap/vim-css-color'
+   " Plug 'junegunn/fzf.vim'
+   " Plug '/usr/local/opt/fzf'
    Plug 'ctrlpvim/ctrlp.vim'
    Plug 'vim-syntastic/syntastic'
    Plug 'vim-scripts/tComment'
