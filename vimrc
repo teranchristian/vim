@@ -4,6 +4,16 @@ set directory=~/.vimcache/swap//
 set undodir=~/.vimcache/undo//
 " set directory= ~/.vim/swapfiles//
 
+"console log
+" Console log from insert mode; Puts focus inside parentheses
+imap cll console.log();<Esc><S-f>(a
+" Console log from visual mode on next line, puts visual selection inside parentheses
+vmap cll yocll<Esc>p
+" Console log from normal mode, inserted on next line with word your on inside parentheses
+nmap cll yiwocll<Esc>p
+
+imap qtt process.exit(1);<Esc>p
+
 " close modified buffers (move buffer to the background)
 set hidden
 
@@ -52,9 +62,6 @@ set list
 
 " disable listchars
 map <f12> :set list!<cr>
-
-" prevent number to copy clipboard
-se mouse+=a
 
 "airline
 set encoding=utf8
@@ -209,6 +216,13 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
+"  codi {{
+  let g:codi#interpreters = {
+     \ 'javascript': {
+         \ 'rightalign': 0,
+         \ },
+     \ }
+" {{
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
