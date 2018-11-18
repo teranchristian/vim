@@ -30,7 +30,6 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +q +q!
-bash -c 'sleep 30; do-whatever-else' &
 if [[ ! -e ~/.profile ]]; then
     touch ~/.profile
 fi
