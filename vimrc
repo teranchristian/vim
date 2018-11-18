@@ -1,5 +1,8 @@
 " remad leader to comma
 let mapleader = ','
+" map esc btn
+inoremap jj <ESC>
+
 
 source nerdtree.vim
 
@@ -10,41 +13,53 @@ let &t_Co=256
 set backupdir=~/.vimcache/backup//
 set directory=~/.vimcache/swap//
 set undodir=~/.vimcache/undo//
-" set directory= ~/.vim/swapfiles//
 
 " close modified buffers (move buffer to the background)
 set hidden
 
-"runtime bundles/tplugin_vim/macros/tplugin.v
 set relativenumber
 set expandtab ts=2 sw=2 ai
 "   This fix the  issue with the delete button
 set backspace=indent,eol,start
 
+
+"   // FORMAT
 " copy the previous indentation on autoindenting
 set copyindent
-
 " set show matching parenthesis
 set showmatch
-
-" save with control s
-inoremap <C-s> <esc>:w<cr>
-nnoremap <C-s> :w<cr>
-
-" ignore case when searching
-set ignorecase
-
-" highlight search terms
-set hlsearch
-
-" show search matches as you type
-set incsearch
-
 " change color of matching bracket
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+"  display spaces and tab
+set listchars=tab:>␣,trail:~,extends:>,precedes:<,space:·
+set list
+" disable listchars
+map <f12> :set list!<cr>
 
-" change the terminal's title
-set title
+
+"   /// SEARCH
+" ignore case when searching
+set ignorecase
+" highlight search terms
+set hlsearch
+" show search matches as you type
+set incsearch
+" hightlight all seach pattern
+" search result middle of screen
+nnoremap n nzz
+nnoremap N Nzz
+set scrolloff=5
+function! CenterSearch()
+  let cmdtype = getcmdtype()
+  if cmdtype == '/' || cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
+
+cnoremap <silent> <expr> <enter> CenterSearch()
+:set hlsearch
+
 
 "cursor
 if &term =~ "xterm\\|rxvt"
@@ -58,30 +73,19 @@ if &term =~ "xterm\\|rxvt"
   " use \003]12;gray\007 for gnome-terminal
 endif
 
-"  display spaces and tab
-set listchars=tab:>␣,trail:~,extends:>,precedes:<,space:·
-set list
 
-" disable listchars
-map <f12> :set list!<cr>
-
+"   /// CLIPBOARD
 " prevent number to copy clipboard
 se mouse+=a
+" copy to clipboat with control + c
+vmap <C-c> "+y
 
 "airline
 set encoding=utf8
 let g:airline_powerline_fonts = 1
 
-
-" copy to clipboat with control + c
-vmap <C-c> "+y
-
 " max line limit
 set colorcolumn=100
-
-" map esc btn
-inoremap jj <ESC>
-
 
 " insernew line
 nmap oo o<Esc>k
@@ -89,13 +93,6 @@ nmap OO O<Esc>k
 
 "display full path 
 set statusline+=%F
-".. hightlight all seach pattern
-:set hlsearch
-
-
-" buftab
-noremap <f1> :bprev<CR> 
-noremap <f2> :bnext<CR> 
 
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -149,12 +146,6 @@ let g:airline_theme='simple'
 
 let g:airline#extensions#tabline#formatter = 'jsformatter'
 
-"Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
 " install npm install eslint --global
 syntax on
 filetype plugin indent on
@@ -182,19 +173,6 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
-" search result middle of screen
-nnoremap n nzz
-nnoremap N Nzz
-set scrolloff=5
-function! CenterSearch()
-  let cmdtype = getcmdtype()
-  if cmdtype == '/' || cmdtype == '?'
-    return "\<enter>zz"
-  endif
-  return "\<enter>"
-endfunction
-
-cnoremap <silent> <expr> <enter> CenterSearch()
 " templates for ejs
 au BufNewFile,BufRead *.ejs set filetype=html
 au BufRead,BufNewFile,BufReadPost *.json set syntax=json
