@@ -3,8 +3,10 @@ let mapleader = ','
 " map esc btn
 inoremap jj <ESC>
 
-
-source nerdtree.vim
+source $HOME/dev/ct/vim/nerdtree.vim
+source $HOME/dev/ct/vim/ag.vim
+source $HOME/dev/ct/vim/controlP.vim
+source $HOME/dev/ct/vim/syntastic.vim
 
 " fix issues with vim-airline color
 let &t_Co=256
@@ -96,25 +98,6 @@ set statusline+=%F
 
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-"  vim ag
-set runtimepath^=~/.vim/bundle/ag
-let g:ag_working_path_mode="r"
-
-" control p
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-let g:ctrlp_regexp = 1
-set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip 
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(node_modules|git|hg|svn|build)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
-" javascript
-let g:javascript_plugin_flow = 1
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
 
 "  set vim update time
 set updatetime=250
@@ -146,23 +129,6 @@ let g:airline_theme='simple'
 
 let g:airline#extensions#tabline#formatter = 'jsformatter'
 
-" install npm install eslint --global
-syntax on
-filetype plugin indent on
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_disabled_filetypes=['html', 'ejs']
-let g:syntastic_mode_map = { 'passive_filetypes': ['ejs'] }
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
@@ -172,10 +138,6 @@ function! StripWhitespace()
 	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
-
-" templates for ejs
-au BufNewFile,BufRead *.ejs set filetype=html
-au BufRead,BufNewFile,BufReadPost *.json set syntax=json
 
 " Fuzzy file finder
 set rtp+=/usr/local/opt/fzf
