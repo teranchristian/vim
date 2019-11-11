@@ -1,7 +1,7 @@
 " remad leader to comma
 let mapleader = ','
 " map esc btn
-inoremap jj <ESC>
+inoremap kj <ESC>
 
 source $HOME/dev/ct/vim/nerdtree.vim
 source $HOME/dev/ct/vim/ag.vim
