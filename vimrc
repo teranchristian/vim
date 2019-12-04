@@ -8,6 +8,9 @@ source $HOME/dev/ct/vim/ag.vim
 source $HOME/dev/ct/vim/controlP.vim
 source $HOME/dev/ct/vim/syntastic.vim
 
+set clipboard=unnamed
+set encoding=utf-8
+
 " fix issues with vim-airline color
 let &t_Co=256
 
