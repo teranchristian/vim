@@ -3,6 +3,8 @@
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 let g:ctrlp_regexp = 1
+let g:ctrlp_working_path_mode = ''
+
 set wildignore+=*/tmp/*,*/node_modules/*,*/build/json/*,*/build/raw/1/*,*.so,*.swp,*.zip,*min.js
 " ignore
 set wildignore+=.DS_Store
