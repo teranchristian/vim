@@ -14,6 +14,10 @@ let NERDTreeShowHidden=1
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
 
 " Automatically delete the buffer of the file you just deleted with NerdTree
 let NERDTreeAutoDeleteBuffer = 1

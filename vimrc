@@ -132,6 +132,9 @@ let g:airline_theme='simple'
 
 let g:airline#extensions#tabline#formatter = 'jsformatter'
 
+" delete without adding to clipboard
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
