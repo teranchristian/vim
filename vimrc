@@ -131,6 +131,7 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_theme='simple'
 
 let g:airline#extensions#tabline#formatter = 'jsformatter'
+let g:prettier#config#parser = 'babylon'
 
 " delete without adding to clipboard
 nnoremap <leader>d "_d
@@ -164,6 +165,16 @@ set rtp+=/usr/local/opt/fzf
    Plug 'airblade/vim-gitgutter'
    Plug 'pangloss/vim-javascript'
    Plug 'mxw/vim-jsx'
+   Plug 'tpope/vim-surround'
+   " go to '~/.vim/plugged/vim-prettier' and run npm install
+    Plug 'prettier/vim-prettier', {
+     \ 'do': 'yarn install',
+     \ 'branch': 'release/0.x',
+     \ 'for': [ 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
+     \ }
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
 call plug#end()
 
 execute pathogen#infect()
