@@ -1,8 +1,23 @@
+" remad leader to comma
+let mapleader = ','
+" map esc btn
+inoremap kj <ESC>
+
+source $HOME/dev/ct/vim/nerdtree.vim
+source $HOME/dev/ct/vim/ag.vim
+source $HOME/dev/ct/vim/controlP.vim
+source $HOME/dev/ct/vim/syntastic.vim
+
+set clipboard=unnamed
+set encoding=utf-8
+
+" fix issues with vim-airline color
+let &t_Co=256
+
 " $HOME/.vimrc
 set backupdir=~/.vimcache/backup//
 set directory=~/.vimcache/swap//
 set undodir=~/.vimcache/undo//
-" set directory= ~/.vim/swapfiles//
 
 "console log
 " Console log from insert mode; Puts focus inside parentheses
@@ -17,32 +32,52 @@ imap qtt process.exit(1);<Esc>p
 " close modified buffers (move buffer to the background)
 set hidden
 
-"runtime bundles/tplugin_vim/macros/tplugin.v
 set relativenumber
 set expandtab ts=2 sw=2 ai
 "   This fix the  issue with the delete button
 set backspace=indent,eol,start
 
+
+"   // FORMAT
 " copy the previous indentation on autoindenting
 set copyindent
-
 " set show matching parenthesis
 set showmatch
-
-" ignore case when searching
-set ignorecase
-
-" highlight search terms
-set hlsearch
-
-" show search matches as you type
-set incsearch
-
 " change color of matching bracket
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+"  display spaces and tab
+set listchars=tab:>␣,trail:~,extends:>,precedes:<,space:·
+set list
+" disable listchars
+map <f12> :set list!<cr>
 
-" change the terminal's title
-set title
+<<<<<<< HEAD
+=======
+
+"   /// SEARCH
+>>>>>>> 63338e47fff55f525ffbc5ba434677b129d91979
+" ignore case when searching
+set ignorecase
+" highlight search terms
+set hlsearch
+" show search matches as you type
+set incsearch
+" hightlight all seach pattern
+" search result middle of screen
+nnoremap n nzz
+nnoremap N Nzz
+set scrolloff=5
+function! CenterSearch()
+  let cmdtype = getcmdtype()
+  if cmdtype == '/' || cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
+
+cnoremap <silent> <expr> <enter> CenterSearch()
+:set hlsearch
+
 
 "cursor
 if &term =~ "xterm\\|rxvt"
@@ -56,13 +91,8 @@ if &term =~ "xterm\\|rxvt"
   " use \003]12;gray\007 for gnome-terminal
 endif
 
-"  display spaces and tab
-set listchars=tab:>␣,trail:~,extends:>,precedes:<,space:·
-set list
 
-" disable listchars
-map <f12> :set list!<cr>
-
+<<<<<<< HEAD
 "airline
 set encoding=utf8
 let g:airline_powerline_fonts = 1
@@ -70,22 +100,34 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " copy to clipboat with control + c
 vmap <C-c> "+y
+=======
+"   /// CLIPBOARD
+" prevent number to copy clipboard
+se mouse+=a
+" copy to clipboat with control + c
+vmap <C-c> "+y
+
+"airline
+set encoding=utf8
+let g:airline_powerline_fonts = 1
+>>>>>>> 63338e47fff55f525ffbc5ba434677b129d91979
 
 " max line limit
 set colorcolumn=100
 
+<<<<<<< HEAD
 " map esc btn
 inoremap jj <ESC>
 
+=======
+>>>>>>> 63338e47fff55f525ffbc5ba434677b129d91979
 " insernew line
 nmap oo o<Esc>k
 nmap OO O<Esc>k
 
-" close tab -> fix issue with Vim close buffer with nerdtree
-nnoremap <leader>q :bp\|bd #<CR>
-
 "display full path 
 set statusline+=%F
+<<<<<<< HEAD
 ".. hightlight all seach pattern
 :set hlsearch
 
@@ -179,6 +221,11 @@ let g:ctrlp_custom_ignore = {
 let g:javascript_plugin_flow = 1
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
+=======
+
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+>>>>>>> 63338e47fff55f525ffbc5ba434677b129d91979
 
 "  set vim update time
 set updatetime=250
@@ -216,6 +263,7 @@ let g:airline#extensions#hunks#non_zero_only = 1
 
 let g:airline#extensions#whitespace#enabled = 0
 
+<<<<<<< HEAD
 "  codi {{
   let g:codi#interpreters = {
      \ 'javascript': {
@@ -252,9 +300,55 @@ function! CenterSearch()
     return "\<enter>zz"
   endif
   return "\<enter>"
-endfunction
+=======
+let g:airline_theme='simple'
 
-cnoremap <silent> <expr> <enter> CenterSearch()
-" templates for ejs
-au BufNewFile,BufRead *.ejs set filetype=html
-au BufRead,BufNewFile,BufReadPost *.json set syntax=json
+let g:airline#extensions#tabline#formatter = 'jsformatter'
+let g:prettier#config#parser = 'babylon'
+
+" delete without adding to clipboard
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+>>>>>>> 63338e47fff55f525ffbc5ba434677b129d91979
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" Fuzzy file finder
+set rtp+=/usr/local/opt/fzf
+
+"Plugins {
+ call plug#begin('~/.vim/plugged')
+   " PRE: install silver search : https://github.com/ggreer/the_silver_searcher#installing
+   Plug 'scrooloose/nerdtree'
+   Plug 'rking/ag.vim'
+   Plug 'ap/vim-css-color'
+   " Plug 'junegunn/fzf.vim'
+   " Plug '/usr/local/opt/fzf'
+   Plug 'ctrlpvim/ctrlp.vim'
+   Plug 'vim-syntastic/syntastic'
+   Plug 'vim-scripts/tComment'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'airblade/vim-gitgutter'
+   Plug 'pangloss/vim-javascript'
+   Plug 'mxw/vim-jsx'
+   Plug 'tpope/vim-surround'
+   " go to '~/.vim/plugged/vim-prettier' and run npm install
+    Plug 'prettier/vim-prettier', {
+     \ 'do': 'yarn install',
+     \ 'branch': 'release/0.x',
+     \ 'for': [ 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
+     \ }
+    let g:prettier#autoformat = 0
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+call plug#end()
+
+execute pathogen#infect()
