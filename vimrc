@@ -146,6 +146,10 @@ function! StripWhitespace()
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
 
+
+" change the terminal's title
+set title
+
 " Fuzzy file finder
 set rtp+=/usr/local/opt/fzf
 
