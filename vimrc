@@ -3,10 +3,10 @@ let mapleader = ','
 " map esc btn
 inoremap kj <ESC>
 
-source $HOME/dev/ct/vim/nerdtree.vim
-source $HOME/dev/ct/vim/ag.vim
-source $HOME/dev/ct/vim/controlP.vim
-source $HOME/dev/ct/vim/syntastic.vim
+execute 'source ' . getcwd() . '/nerdtree.vim'
+execute 'source ' . getcwd() . '/ag.vim'
+execute 'source ' . getcwd() . '/controlP.vim'
+execute 'source ' . getcwd() . '/syntastic.vim'
 
 set clipboard=unnamed
 set encoding=utf-8
